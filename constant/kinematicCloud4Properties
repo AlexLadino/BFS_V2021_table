@@ -1,0 +1,178 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  4.x                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      kinematicCloud4Properties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+#include        "./system/userConfigValues"
+
+solution
+{
+    active          true;     // true/false Activate/de-activate particle cloud 
+    coupled         false;     // false: One way ,true: Two way coupling
+    transient       yes;      // Trasient/steady state solution (?)
+    // cellValueSourceCorrection: Enable/disable momentum correction of 
+    // momentum transferred to Eulerian phase
+    cellValueSourceCorrection off; 
+    maxCo           0.3; // maxCo for move particles
+
+    // interpolation schemes for particle interpolation
+    interpolationSchemes      
+    {
+        rho             cell;
+        U               cellPoint;
+        mu              cell;
+        DUcDt           cell;    // For pressureGradient subModel    
+        // curlUcDt        cell;    // For SaffmanMeiLiftForce subModel
+    }
+
+    integrationSchemes
+    {
+        U               Euler; // Euler, analytical
+    }
+
+    sourceTerms
+    {
+        schemes
+        {
+            U           semiImplicit 1; // explicit 1, semiImplicit 1
+        }
+    }
+}
+
+constantProperties
+{
+    rho0            $valRho0;     // particle density
+    youngsModulus   1.3e5;    // particle young modulus
+    poissonsRatio   0.35;     // particle Poisson Ratio
+}
+
+// subModels. See lagrangian/intermediate/submodels/
+subModels
+{
+    particleForces
+    {
+            #include    "./constant/userParticleForces"
+    }
+
+    injectionModels
+    {     
+      /*  
+      model1
+	{
+            type             patchInjection;    // injection model
+            patchName        inlet; // injection patch name
+            duration         100;     // total duration of particle injection
+            parcelsPerSecond 33261;   // injected parcels/particles per second
+            massTotal        0;     
+            parcelBasisType  fixed; // number, mass, fixed (?)
+            flowRateProfile  constant 1; 
+            nParticle        1; // particle identifier (?) 1,2..nParticle types
+            SOI              0.01;   // Start-Of-Injection time
+            U0               (9.39 0 0);  // Initial parcel/particle velocity
+            // Size distribution model see: lagrangian/distributionModels
+            sizeDistribution
+            {
+                type        fixedValue; // uniform, normal, multiNormal, general
+                fixedValueDistribution
+                {
+                    value   0.00030;
+                }                
+            }
+      }
+      */
+    model1
+	{
+      type             kinematicLookupTableInjection;
+      massTotal        0;
+      parcelBasisType  fixed;
+      nParticle        1;
+      SOI              $valSOI;
+      inputFile        "kinematicCloud4InjectionsTable";
+      duration         $valDuration;
+	parcelsPerSecond $valParcelsPerSecond;
+      randomise       false;
+    }
+	}
+	
+    dispersionModel $valDispersionModel; 
+
+    patchInteractionModel localInteraction; // standardWallInteraction;
+
+    /*
+    standardWallInteractionCoeffs
+    {
+        type rebound;
+        e    0.97;
+        mu   0.09;
+    }
+      */
+
+    localInteractionCoeffs
+    {
+        patches
+        (
+			#include "./constant/userLocalInteractionData"
+        );
+      }
+
+    surfaceFilmModel none;
+
+    stochasticCollisionModel none;
+    
+    collisionModel none;    
+
+    pairCollisionCoeffs
+    {
+        maxInteractionDistance  0.00007;
+
+        writeReferredParticleCloud no;
+
+        pairModel pairSpringSliderDashpot;
+
+        pairSpringSliderDashpotCoeffs
+        {
+            useEquivalentSize   no;
+            alpha               0.12;
+            b                   1.5;
+            mu                  0.52;
+            cohesionEnergyDensity 0;
+            collisionResolutionSteps 12;
+        };
+        
+        wallModel wallSpringSliderDashpot;
+
+        wallSpringSliderDashpotCoeffs
+        {
+            useEquivalentSize no;
+            collisionResolutionSteps 12;
+            youngsModulus   1e10;
+            poissonsRatio   0.23;
+            alpha           0.12;
+            b               1.5;
+            mu              0.43;
+            cohesionEnergyDensity 0;
+        };
+    }
+}
+
+cloudFunctions
+{
+    voidFraction1
+    {
+        type            voidFraction;
+    }
+}
+
+// ************************************************************************* //

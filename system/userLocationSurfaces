@@ -1,0 +1,94 @@
+      symmetryPlane
+      {
+            type            cuttingPlane;
+            planeType       pointAndNormal;
+            pointAndNormalDict
+            {
+                  basePoint   (0 0 0);
+                  normalVector (0 0 1);
+            }
+            interpolate     true;
+           
+      }    
+     
+      outlet0D
+      {
+            type            cuttingPlane;
+            planeType       pointAndNormal;
+            pointAndNormalDict
+            {     
+                  basePoint       (0 0 0);
+                  normalVector (0 1 0);
+            }
+            interpolate     true;
+            
+            
+      }
+      
+      outlet02D
+      {
+            type            cuttingPlane;
+            planeType       pointAndNormal;
+            pointAndNormalDict
+            {
+                  basePoint       (0 0 0);
+                  normalVector (0 1 0);
+            }
+            interpolate     true;
+            
+            
+      }
+      
+      outlet06D
+      {
+            type            cuttingPlane;
+            planeType       pointAndNormal;
+            pointAndNormalDict
+            {
+                  basePoint       (0 0 0);
+                  normalVector (0 1 0);
+            }
+            interpolate     true;
+            
+            
+      }
+      
+      outlet1D
+      {
+            type            cuttingPlane;
+            planeType       pointAndNormal;
+            pointAndNormalDict
+            {     
+                  basePoint       (0 0 0);
+                  normalVector (0 1 0);
+            }
+            interpolate     true;
+            
+            
+      }
+      
+      outlet2D
+      {
+            type            cuttingPlane;
+            planeType       pointAndNormal;
+            pointAndNormalDict
+            {      
+                  basePoint       (0 0 0);
+                  normalVector (0 1 0);
+            }
+            interpolate     true;
+            
+            
+      }
+      
+      outlet4D
+      {
+            type            cuttingPlane;
+            planeType       pointAndNormal;
+            pointAndNormalDict
+            {
+                  basePoint       (0 0 0);
+                  normalVector (0 1 0);
+            }
+            interpolate     true;           
+      }

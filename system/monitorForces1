@@ -1,0 +1,71 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+/*
+Fig 8. Rutten 2005
+Comparativo de oscilacion entre caso ribs vs liso
+Fig 4.21 autocoirrelaciones temporales en la tubería de salida
+Con BINS: Fig 4.2 Spatio temporal correlations of the firce fluctuation. alon pipe downstream
+*/
+
+/*
+// Fuerza Z (horizontal x en Wang) 
+// Fuerza X (vertical y en Wang) 
+*/
+
+/*
+Cada 4 pasos de tiempo (Eqv a Co-2.0)
+*/
+
+monitorForceOUTLETWALL
+{
+    type            forces;
+
+    libs            ("libforces.so");
+
+    executeControl  timeStep;     // none; timeStep; writeTime; outputTime
+    executeInterval   2;
+
+    writeControl    timeStep;
+    writeInterval    2;
+
+    patches         (OUTLETWALL);
+    rho             rhoInf;      // Indicates incompressible
+    rhoInf          1.185430464;           // Redundant for incompressible
+    
+    log             no;
+     
+    CofR            (0 0 0);  // Axle midpoint on ground
+    pitchAxis       (0 0 1);
+    
+}
+
+monitorForceBENDWALL
+{
+    type            forces;
+
+    libs            ("libforces.so");
+
+      executeControl  timeStep;     // none; timeStep; writeTime; outputTime
+      executeInterval   2;
+
+      writeControl    timeStep;
+      writeInterval    2;
+
+    log             no;
+    
+    #include "userForcePatches"
+    rho             rhoInf;      // Indicates incompressible
+    rhoInf          1.185430464;           // Redundant for incompressible
+
+     
+    CofR            (0 0 0);  // Axle midpoint on ground
+    pitchAxis       (0 0 1);
+    
+}
+
+// ************************************************************************* //

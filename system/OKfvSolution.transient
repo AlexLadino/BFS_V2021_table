@@ -1,0 +1,244 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.2.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+/*
+// AVERAGING Co<1
+    p
+    {    
+        solver                GAMG;
+        tolerance             1e-05;
+        relTol                0;
+        smoother              DICGaussSeidel;
+        cacheAgglomeration    true;
+        nCellsInCoarsestLevel 100;
+        agglomerator          faceAreaPair;
+        mergeLevels           1;       
+    }
+    pFinal
+    {
+        $p;
+        tolerance         1e-06;
+        relTol            0;              
+    }
+    "(U|k|epsilon|omega|R|f|v2)"
+    {
+        solver            smoothSolver;
+        smoother          symGaussSeidel;
+        tolerance         1e-5;
+        relTol            0;          
+    }
+    "(U|k|epsilon|omega|R|f|v2)Final"
+    {       
+        $U;
+        tolerance         5e-8; // 5e-08;
+        relTol            0;        
+    }    
+*/
+// TRANSIENT Co>1 PIMPLE SIMPLE PRECISION  
+      p
+      {    
+            solver           		GAMG;
+            tolerance        		1e-4;
+            relTol           		0.1;
+            smoother         		GaussSeidel;
+            nPreSweeps       		0;
+            nPostSweeps      		2;
+            cacheAgglomeration 	on;
+            agglomerator     		faceAreaPair;
+            nCellsInCoarsestLevel 	100;
+            mergeLevels      		1;
+            minIter		 	1;
+      }
+      pFinal
+      {
+            $p;
+            tolerance               1e-05;
+            relTol                  0;
+            minIter		      1;              
+      }
+      "(U|k|epsilon|omega|R|f|v2)"
+      {
+            solver                  PBiCGStab;
+            preconditioner          DILU;
+            tolerance               1e-5;
+            relTol                  0.1; 
+            minIter			1;         
+      }
+      "(U|k|epsilon|omega|R|f|v2)Final"
+      {       
+            $U;
+            tolerance               5e-8;
+            relTol                  0;
+            minIter	            1;        
+      }      	
+/*
+// SIMPLE 
+    p
+    {
+        solver          GAMG;
+        tolerance       1e-05;
+        relTol          0.01;
+        smoother        GaussSeidel;
+    }
+
+    "(U|k|epsilon|omega|f|v2)"
+    {
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-06;
+        relTol          0.001;
+    }
+    
+    Phi
+    {
+    $p
+    }
+*/
+
+/*
+// PIMPLE PRECISE
+    p
+    {
+        solver           GAMG;
+        tolerance        1e-6;
+        relTol           1e-5;
+        smoother         DICGaussSeidel;
+        cacheAgglomeration true;
+        nCellsInCoarsestLevel 100;
+        agglomerator     faceAreaPair;
+        mergeLevels      1;
+    }
+    pFinal
+    {
+        $p;
+        tolerance        1e-7;
+        relTol           0;
+    }
+    "(U|k|epsilon|omega|f|v2)"
+    {
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       5e-7;
+        relTol          1e-5;
+    }
+    "(U|k|epsilon|omega|f|v2)Final"
+    {
+        $U;
+        tolerance       1e-8;
+        relTol          0;
+    }
+*/    
+}
+/*
+// AVERAGING  Co<1
+PIMPLE
+{
+    nOuterCorrectors          1;
+    nCorrectors               4;
+    nNonOrthogonalCorrectors  1;  
+    // pRefCell  1001;
+    // pRefValue 0;  
+}
+*/
+
+// TRANSIENT Co>1 PIMPLE SIMPLE PRECISION
+PIMPLE
+{
+    nOuterCorrectors          2;
+    nCorrectors               3;
+    nNonOrthogonalCorrectors  1;  
+    //pRefCell  1001;
+    //pRefValue 0;    
+}
+
+/*
+PISO
+{
+    nCorrectors               4;
+    nNonOrthogonalCorrectors  1;  
+    // pRefCell  1001;
+    // pRefValue 0;  
+}
+*/
+
+/*
+// PRECISE 
+PIMPLE
+{
+    nCorrectors     		      3;
+    nOuterCorrectors 		      9;
+    nNonOrthogonalCorrectors 	1;
+    //pRefCell                  1001;
+    //pRefValue                 0;
+    residualControl
+    {
+        U
+        {
+            tolerance   1e-5;
+            relTol      0;
+        }
+        p
+        {
+            tolerance   2e-5;
+            relTol      0;
+        }
+    }
+}
+*/
+
+/*
+// SIMPLE
+SIMPLE
+{
+    nNonOrthogonalCorrectors  1;
+    consistent                yes;
+    residualControl
+    {
+        p                         1e-4;
+        U                         1e-5;
+        "(k|epsilon|omega|f|v2)"  1e-5;
+    }
+    // pRefCell  1001;
+    // pRefValue 0;
+}
+relaxationFactors
+{
+    equations
+    {
+        U               0.9; // 0.9 is more stable but 0.95 more convergent
+        ".*"            0.9; // 0.9 is more stable but 0.95 more convergent
+    }
+}
+cache
+{
+    grad(U);
+}
+
+potentialFlow
+{
+    nNonOrthogonalCorrectors 4;
+}
+*/
+
+wallDist
+{
+    method meshWave;
+}
+
+// ************************************************************************* //

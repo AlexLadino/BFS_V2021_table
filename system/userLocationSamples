@@ -1,0 +1,42 @@
+    BFS_xH_2
+    {
+        type         midPointAndFace; // lineCellFace;
+        axis        distance;
+        start       (0.0534 0.0000 0.0000);
+        end         (0.0534 0.0667 0.0000);
+    }
+    BFS_xH_5
+    {
+        type         midPointAndFace; // lineCellFace;
+        axis        distance;
+        start       (0.1335 0.0000 0.0000);
+        end         (0.1335 0.0667 0.0000);
+    }
+    BFS_xH_7
+    {
+        type         midPointAndFace; // lineCellFace;
+        axis        distance;
+        start       (0.1869 0.0000 0.0000);
+        end         (0.1869 0.0667 0.0000);
+    }
+    BFS_xH_9
+    {
+        type         midPointAndFace; // lineCellFace;
+        axis        distance;
+        start       (0.2403 0.0000 0.0000);
+        end         (0.2403 0.0667 0.0000);
+    }
+    BFS_xH_12
+    {
+        type         midPointAndFace; // lineCellFace;
+        axis        distance;
+        start       (0.3204 0.0000 0.0000);
+        end         (0.3204 0.0667 0.0000);
+    }
+    BFS_xH_14
+    {
+        type         midPointAndFace; // lineCellFace;
+        axis        distance;
+        start       (0.3738 0.0000 0.0000);
+        end         (0.3738 0.0667 0.0000);
+    }

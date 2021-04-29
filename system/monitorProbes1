@@ -1,0 +1,38 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  4.x                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+    probes1
+    {
+       // Where to load it from
+      libs ( "libsampling.so" );
+
+      type            probes;
+
+      // Name of the directory for probe data
+      name            probes1;
+
+      enable          true;
+
+      executeControl  timeStep;     // none; timeStep; writeTime; outputTime       
+      executeInterval   2;
+      writeControl    timeStep;     // none; timeStep; writeTime; outputTime
+      writeInterval     2;   
+
+      // Fields to be probed 
+      // UMean_w1, UMean_w2 son UMean con media movil ventana w1 y w2 (ver fieldAverage)
+      fields
+      (
+          U p UMean pMean
+      );
+
+      #include "./system/userLocationProbes"
+    
+    }
+
+
+// ************************************************************************* //

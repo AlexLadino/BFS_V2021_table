@@ -1,0 +1,18 @@
+inlet 
+{
+    type escape;
+    e    0.97;
+    mu   0.09;
+}
+walls 
+{
+    type rebound;
+    e    0.97;
+    mu   0.09;
+}
+outlet 
+{
+    type escape;
+    e    0.97;
+    mu   0.09;
+}

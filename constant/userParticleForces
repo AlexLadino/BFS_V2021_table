@@ -1,0 +1,27 @@
+
+
+        sphereDrag;       
+        gravity;        
+
+        pressureGradient
+        {
+            U U;
+        }                        
+        /*
+            ErgunWenYuDrag
+            {
+                  alphac;     // requires alphac field
+            }
+            PlessisMasliyahDrag;
+            SRF;
+            SaffmanMeiLiftForce{} // Dictionary contents (?)
+            TomiyamaLift;
+            WenYuDrag;
+            nonInertialFrame;
+            nonSphereDrag;
+            paramagnetic;
+            virtualMass
+            {
+                  Cvm; // (?)
+            }
+        */
