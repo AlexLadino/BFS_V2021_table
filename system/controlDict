@@ -30,9 +30,9 @@ stopAt:           endTime (al tiempo definido por usuario)
 */            
 stopAt            endTime;
 
-endTime           $valEndTimeTKE; // 0.01 transient 0.02 LPT 
+endTime           $valEndTimeLPT; // 0.01 transient 0.02 LPT 
 
-deltaT            $valDeltaTTKE; // 
+deltaT            $valDeltaTLPT; // 
 /*
 writeControl:     runTime (every writeInterval seconds)
                   timeSteps (every writeInterval time steps)
@@ -40,7 +40,7 @@ writeControl:     runTime (every writeInterval seconds)
 */
 writeControl      adjustableRunTime;
 
-writeInterval     $valWriteIntervalTKE; // Aprox cada 1 tiempo de residencia
+writeInterval     $valWriteIntervalLPT; // Aprox cada 1 tiempo de residencia
 
 purgeWrite        8; // Important for large simulations
 /*
@@ -60,9 +60,9 @@ timePrecision     8;
 
 runTimeModifiable yes;  // yes; // yes reread controlDict each timeStep. No is more fast?
 
-adjustTimeStep    $valAdjustTimeStepTKE;  
+adjustTimeStep    $valAdjustTimeStepLPT;  
 
-maxCo             $valMaxCoTKE;  // 2.0 transient - 1.5 LPT - 2.0 tke
+maxCo             $valMaxCoLPT;  // 2.0 transient - 1.5 LPT
 
 maxDeltaT         3;
 
@@ -76,6 +76,7 @@ functions
 {
       // Para que los cambian en tiempo de ejecucion se hagan se debe modificar
       // en los includes y luego modificar con espacio y guardar el controlDict
+      #include "fieldAverage1"
       #include "monitorProbes1"
       #include "monitorSurfaces1"
       #include "monitorTurbulenceCriterion"
@@ -84,5 +85,5 @@ functions
       #include "monitorSamplesTKEPressure.tke"         
       #include "monitorSamplesTKEProductionDissipation.tke"
       #include "monitorSamplesTKETurbTransportViscousDiffusion.tke"
-      #include "monitorForces1"      
 }
+
