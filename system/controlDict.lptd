@@ -19,50 +19,37 @@ FoamFile
 
 application       pimpleLPTTKEBudgetFoam;
 
-startFrom         latestTime; // startTime; latestTime
+startFrom         latestTime;
 
 startTime         0;
-/*
-stopAt:           endTime (al tiempo definido por usuario)  
-                  nexWrite (proxima escritura a disco termina)
-                  writeNow (escribe y termina)
-                  noWriteNow (termina in escribir la ultima iteracion)
-*/            
+            
 stopAt            endTime;
 
-endTime           $valEndTimeLPT; // 0.01 transient 0.02 LPT 
+endTime           $valEndTimeLPT;
 
-deltaT            $valDeltaTLPT; // 
-/*
-writeControl:     runTime (every writeInterval seconds)
-                  timeSteps (every writeInterval time steps)
-                  adjustableRunTime (adjustable according to writeInterval seconds)
-*/
+deltaT            $valDeltaTLPT;
+
 writeControl      adjustableRunTime;
 
-writeInterval     $valWriteIntervalLPT; // Aprox cada 1 tiempo de residencia
+writeInterval     $valWriteIntervalLPT;
 
-purgeWrite        8; // Important for large simulations
-/*
-Utility
-foamFormatConvert: Convert format to the specified writeFormat value
-                   binary to ascii conversion writeCompression is considered
-*/
-writeFormat       ascii;
+purgeWrite        8;
+
+writeFormat       binary;
 
 writePrecision    8;
 
 writeCompression  off;
 
-timeFormat        fixed; // general, fixed with timePrecision decimal digits
+timeFormat        fixed;
 
 timePrecision     8;
 
-runTimeModifiable yes;  // yes; // yes reread controlDict each timeStep. No is more fast?
+runTimeModifiable yes;
 
 adjustTimeStep    $valAdjustTimeStepLPT;  
 
-maxCo             $valMaxCoLPT;  // 2.0 transient - 1.5 LPT
+maxCo             $valMaxCoLPT;
 
 maxDeltaT         3;
 
@@ -74,8 +61,6 @@ libs
 // ************************************************************************* 
 functions
 {
-      // Para que los cambian en tiempo de ejecucion se hagan se debe modificar
-      // en los includes y luego modificar con espacio y guardar el controlDict
       #include "fieldAverage1"
       #include "monitorProbes1"
       #include "monitorSurfaces1"

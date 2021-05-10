@@ -1,0 +1,58 @@
+ 
+fieldAverage1
+{
+      // Type of functionObject
+      type            fieldAverage;
+
+      // Where to load it from (if not already in solver)
+      libs ("libfieldFunctionObjects.so");
+
+      enabled   true; // Function object enabled flag
+
+      // writeInterval 1;(Escriba los Mean cada vez que se escriba a disco)
+      // writeInterval 2;(Escriba los Mean cada dos veces que se escriba a disco)
+      // writeInterval 3;(Escriba los Mean cada tres veces que se escriba a disco)
+      writeControl    writeTime; // none; timeStep; writeTime; outputTime
+      writeInterval   2;          
+
+      // critero de ejecucion timeStep (segun paso de tiempo)
+      // 1: Calcule Averages cada paso de tiempo, 2: cada dos pasos, 3: cada tres pasos ...
+      // Debe sincronizarse el executeInterval con el writeInterval de escritura de resultados
+      executeControl timeStep; // none; timeStep; writeTime; outputTime
+      executeInterval 2; 
+
+      periodicRestart     false; // reinicie promedio periodicamente
+      restartPeriod       15; // reinicie el promedio cada X segundos
+
+      restartOnRestart   false; // reinicie averages al reiniciar solucion
+
+
+      // Fields to be averaged - runTime modifiable
+      fields
+      (           
+            U
+            {
+                  mean        on;
+                  prime2Mean  on;
+                  base        time;                   
+            }
+            p
+            {
+                  mean        on;
+                  prime2Mean  off;
+                  base        time;
+                  /*
+                  window          10.0;   // ventana para promedio media movil
+                  windowName      w1;     // nombre de la ventana para varias
+                  */
+            }
+            /*
+            kinematicCloud1Theta
+            {
+                  mean        on;
+                  prime2Mean  off;
+                  base        time;                   
+            }
+            */                       
+      );
+}

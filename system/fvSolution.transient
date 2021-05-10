@@ -1,0 +1,70 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.2.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvSolution;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solvers
+{
+      p
+      {    
+            solver           		GAMG;
+            tolerance        		1e-4;
+            relTol           		0.1;
+            smoother         		GaussSeidel;
+            nPreSweeps       		0;
+            nPostSweeps      		2;
+            cacheAgglomeration 	on;
+            agglomerator     		faceAreaPair;
+            nCellsInCoarsestLevel 	100;
+            mergeLevels      		1;
+            minIter		 	1;
+      }
+      pFinal
+      {
+            $p;
+            tolerance               1e-05;
+            relTol                  0;
+            minIter		      1;              
+      }
+      "(U|k|epsilon|omega|R|f|v2)"
+      {
+            solver                  PBiCGStab;
+            preconditioner          DILU;
+            tolerance               1e-5;
+            relTol                  0.1; 
+            minIter			1;         
+      }
+      "(U|k|epsilon|omega|R|f|v2)Final"
+      {       
+            $U;
+            tolerance               5e-8;
+            relTol                  0;
+            minIter	            1;        
+      }   
+}
+
+PIMPLE
+{
+      nOuterCorrectors          2;
+      nCorrectors               3;
+      nNonOrthogonalCorrectors  1;  
+}
+
+wallDist
+{
+    method meshWave;
+}
+
+// ************************************************************************* //

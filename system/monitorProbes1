@@ -8,23 +8,19 @@
 
     probes1
     {
-       // Where to load it from
       libs ( "libsampling.so" );
 
       type            probes;
 
-      // Name of the directory for probe data
       name            probes1;
 
       enable          true;
 
-      executeControl  timeStep;     // none; timeStep; writeTime; outputTime       
+      executeControl  timeStep;      
       executeInterval   2;
-      writeControl    timeStep;     // none; timeStep; writeTime; outputTime
+      writeControl    timeStep;
       writeInterval     2;   
 
-      // Fields to be probed 
-      // UMean_w1, UMean_w2 son UMean con media movil ventana w1 y w2 (ver fieldAverage)
       fields
       (
           U p UMean pMean

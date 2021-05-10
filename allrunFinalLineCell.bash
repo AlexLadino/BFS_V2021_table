@@ -7,7 +7,7 @@ numProc=4
 numProc_1=3
 
 cp  ./system/decomposeParDict.orig	./system/decomposeParDict
-cp ./system/userLocationSamples.v2012 ./system/userLocationSamples
+cp ./system/userLocationSamples.lineCell ./system/userLocationSamples
 UFile="./system/decomposeParDict"
 sed s/"\(numberOfSubdomains[ \t]*\) 4"/"\1 $numProc"/g $UFile > temp.$$
 mv -f temp.$$ $UFile

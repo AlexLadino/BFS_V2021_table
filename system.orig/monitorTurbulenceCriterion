@@ -1,0 +1,34 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  4.x                                   |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+
+Q // Q criteria
+{
+      // Function object enabled flag
+      enabled           true;
+      type              Q;
+      libs              ("libfieldFunctionObjects.so");
+      executeControl    writeTime;
+      executeInterval   1;
+      writeControl      writeTime; // writeTime, none
+      writeInterval     1;      
+}    
+
+Lambda2 //Lamda2 criteria
+{
+      // Function object enabled flag
+      enabled           true;
+      type              Lambda2;
+      libs              ("libfieldFunctionObjects.so");
+      executeControl    writeTime;
+      executeInterval   1;
+      writeControl      writeTime; // writeTime, none
+      writeInterval     1;      
+}    
+
+// ************************************************************************* //

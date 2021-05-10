@@ -17,29 +17,25 @@ Con BINS: Fig 4.2 Spatio temporal correlations of the firce fluctuation. alon pi
 // Fuerza X (vertical y en Wang) 
 */
 
-/*
-Cada 4 pasos de tiempo (Eqv a Co-2.0)
-*/
-
 monitorForceOUTLETWALL
 {
     type            forces;
 
     libs            ("libforces.so");
 
-    executeControl  timeStep;     // none; timeStep; writeTime; outputTime
+    executeControl  timeStep;
     executeInterval   2;
 
     writeControl    timeStep;
     writeInterval    2;
 
     patches         (OUTLETWALL);
-    rho             rhoInf;      // Indicates incompressible
-    rhoInf          1.185430464;           // Redundant for incompressible
+    rho             rhoInf;
+    rhoInf          1.185430464; 
     
     log             no;
      
-    CofR            (0 0 0);  // Axle midpoint on ground
+    CofR            (0 0 0);
     pitchAxis       (0 0 1);
     
 }
@@ -50,7 +46,7 @@ monitorForceBENDWALL
 
     libs            ("libforces.so");
 
-      executeControl  timeStep;     // none; timeStep; writeTime; outputTime
+      executeControl  timeStep;
       executeInterval   2;
 
       writeControl    timeStep;
@@ -59,11 +55,11 @@ monitorForceBENDWALL
     log             no;
     
     #include "userForcePatches"
-    rho             rhoInf;      // Indicates incompressible
-    rhoInf          1.185430464;           // Redundant for incompressible
+    rho             rhoInf;
+    rhoInf          1.185430464;
 
      
-    CofR            (0 0 0);  // Axle midpoint on ground
+    CofR            (0 0 0);
     pitchAxis       (0 0 1);
     
 }

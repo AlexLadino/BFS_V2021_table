@@ -1,0 +1,44 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  5                                     |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+// BFS_V2021
+// averagingProperties
+// Formula simple:
+// tStartAveraging: endTime(transient) + 10*deltaT + 0.5*deltaT
+// tStartTKEAveraging > tStartAveraging
+// tStartTKEAveraging: endTime(lpt) + deltaT(lpt) + 10*deltaT + 0.5*deltaT
+valTStartAveraging            0.02115000; // 0.02 + 1e-4 + 10*1e-4 + 0.5*1e-4
+valTStartTKEAveraging         0.02115000; // 0.02 + 1e-4 + 10*1e-4 + 0.5*1e-4
+
+valEndTimeLPT                 0.02; // 0.01 transient 0.02 LPT 
+valDeltaTLPT                  1.0e-4;
+valWriteIntervalLPT           0.005;
+valAdjustTimeStepLPT             yes;
+valMaxCoLPT                      1.5;  // 2.0 transient - 1.5 LPT
+
+valEndTimeTKE                 0.0401; // 0.01 transient 0.02 LPT 
+valDeltaTTKE                  1.0e-4;
+valWriteIntervalTKE           0.005;
+valAdjustTimeStepTKE             yes;
+valMaxCoTKE                      2.0;  // 2.0 transient - 1.5 LPT
+
+// g file
+valGravity                    (0 -9.81 0);
+
+// injectionModel
+valParcelsPerSecond           1000;
+valDuration                   1e-3;
+valSOI                        0.01000000;
+
+// Constant properties
+valRho0                       8800;
+
+// dispersionModel
+valDispersionModel            stochasticDispersionRAS; // none;
+       
+// ************************************************************************* //
