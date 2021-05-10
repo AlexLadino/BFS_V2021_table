@@ -22,12 +22,12 @@ application       pimpleLPTTKEBudgetFoam;
 startFrom         latestTime;
 
 startTime         0;
-            
+          
 stopAt            endTime;
 
 endTime           $valEndTimeTKE;
 
-deltaT            $valDeltaTTKE; 
+deltaT            $valDeltaTTKE; // 
 
 writeControl      adjustableRunTime;
 
